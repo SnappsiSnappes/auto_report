@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx_service/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./img:/usr/share/nginx/html/img
+
+    ports:
+      - "8091:8080"  # Nginx listens on port 80 by default
+    depends_on:
+      - php
+    container_name: nginx_service_auto_report
+
+  php:
+    build:
+      context: .
+      dockerfile: _docker/php_service/Dockerfile
+    user: '1000:1000'
+    volumes:
+      - ./:/var/www/
+    container_name: php_service_auto_report
+
+  db:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./_docker/db_service/tmp/db:/var/lib/mysql/
+      - ./_docker/db_service/file_setting/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: auto_report
+      MYSQL_ROOT_PASSWORD: root 
+      # root root login password
+    ports:
+      - "3313:3306"  # MySQL listens on port 3306 by default
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    container_name: db_service_auto_report
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8055:80"  # PhpMyAdmin listens on port 80 by default
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
