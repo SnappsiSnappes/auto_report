@@ -1,5 +1,13 @@
 # Документация к проекту
 
+## Скриншоты
+
+![Кнопка обновить](https://github.com/SnappsiSnappes/auto_report/assets/111605401/cb8f05e5-3582-4643-8705-4ea90b882b98)
+![Графики](https://github.com/SnappsiSnappes/auto_report/assets/111605401/05f29364-2d3c-46cd-a60b-93049e0e719f)
+![Верхняя часть сайта](https://github.com/SnappsiSnappes/auto_report/assets/111605401/c47faffb-4ccd-4508-bc65-5e2dcc313fdb)
+![Конец списка](https://github.com/SnappsiSnappes/auto_report/assets/111605401/dddc2ffe-d4c4-440b-8294-4119b2ffea80)
+
+
 ## Запуск
 
 docker-compose up в терминале 
